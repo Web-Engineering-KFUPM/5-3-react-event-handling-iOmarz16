@@ -2,19 +2,27 @@ import React, { useState } from "react";
 import TaskList from "./TaskList";
 
 export default function TaskApp() {
+  const [text, setText] = useState("");
+  const [tasks, setTasks] = useState([]);
   
   const handleSubmit = () => {
+    const t = text.trim();
+    if (!t) return;                
+    const newTask = { id: Date.now(), text: t };
+    setTasks(prev => [...prev, newTask]);  
+    setText("");    
    
   };
 
   
   const handleDelete = (id) => {
-    // TODO: filter tasks by id to remove the clicked one
+    setTasks(prev => prev.filter(task => task.id !== id));
   };
 
   
   const handleClearAll = () => {
     // TODO: set tasks to empty array
+     setTasks([]);
   };
 
   return (
